@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  api:
+    build: ./connexion
+    command: python app.py
+
+  elasticsearch:
+    image: elasticsearch:5.2

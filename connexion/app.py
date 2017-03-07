@@ -13,8 +13,9 @@ import connexion
 
 
 # global objects
-ES = Elasticsearch([{'host': 'localhost', 'port': 9200}])
-APP = connexion.App(__name__, specification_dir='swagger/')
+ES = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
+# APP = connexion.App(__name__, specification_dir='swagger/')
+APP = connexion.App(__name__, specification_dir='.')
 
 # config
 ES_INDEX_NAME = 'events'
