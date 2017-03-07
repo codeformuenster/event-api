@@ -35,6 +35,7 @@ Or for development mode with auto reload, run with:
 ```bash
 # fish shell
 
+docker-compose build
 docker-compose up
 
 set eventapi (docker network inspect eventapi_default | jq -r '.[].Containers | to_entries | .[] | select(.value.Name == "eventapi_api_1") | .value.IPv4Address | split("/")[0]')
