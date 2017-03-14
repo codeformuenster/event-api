@@ -7,6 +7,7 @@ Uses Conexxion to serve REST API via SWAGGER file
 
 import datetime
 import logging
+import sys
 from datetime import date, timedelta
 from elasticsearch import Elasticsearch
 import connexion
