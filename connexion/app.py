@@ -124,7 +124,7 @@ APP.add_api('open-events-api.yaml', strict_validation=True,
             validate_responses=True)
 
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 # set the WSGI application callable to allow using uWSGI:
 # uwsgi --http :8080 -w app
 application = APP.app
