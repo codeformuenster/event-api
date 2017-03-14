@@ -8,13 +8,17 @@ Uses Conexxion to serve REST API via SWAGGER file
 import datetime
 import logging
 import sys
+import os
 from datetime import date, timedelta
 from elasticsearch import Elasticsearch
 import connexion
 
 
 # global objects
-ES = Elasticsearch([{'host': 'elasticsearch', 'port': 9200}])
+elasticsearch_url = os.environ.get("ELASTICSEARCH_URL", "http://elasticsearch:9200/")
+ES = Elasticsearch([elasticsearch_url])
+
+
 # APP = connexion.App(__name__, specification_dir='swagger/')
 APP = connexion.App(__name__, specification_dir='.')
 
