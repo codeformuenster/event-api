@@ -18,7 +18,6 @@ import connexion
 elasticsearch_url = os.environ.get("ELASTICSEARCH_URL", "http://elasticsearch:9200/")
 ES = Elasticsearch([elasticsearch_url])
 
-
 # APP = connexion.App(__name__, specification_dir='swagger/')
 APP = connexion.App(__name__, specification_dir='.')
 
@@ -89,6 +88,10 @@ def get_events(lat, lon, radius=10, start_date="", end_date="", query="",
 
     response = []
     for hit in res['hits']['hits']:
+        hit["_source"]["venue"]["location"] = {
+            "lat": hit["_source"]["venue"]["location"][1],
+            "lon": hit["_source"]["venue"]["location"][0]
+        }
         response.append(hit['_source'])
 
     return response
