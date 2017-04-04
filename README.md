@@ -1,4 +1,4 @@
-# Openn Events Database API (Built with Connexion)
+# Open Events Database API (Built with Connexion)
 
 # Install
 
