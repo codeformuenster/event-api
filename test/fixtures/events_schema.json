@@ -1,0 +1,1 @@
+{"mappings":{"event":{"properties":{"venue":{"properties":{"location":{"type":"geo_point"},"venue":{"properties":{"location":{"type":"geo_point"}}}}}}}}}

@@ -1,63 +1,60 @@
-# this is an example of the Uber API
-# as a demonstration of an API spec in YAML
 swagger: '2.0'
 info:
   title: Open Events API
   description: Move your app forward with the Events API - alpha v0.02
-  version: "1.0.0"
+  version: "0.0.0"
 host: open-events.codeformuenster.org
-# array of all schemes that your API supports
 schemes:
-  - https
-basePath: /v1
+- https
+basePath: /v0
 produces:
-  - application/json
+- application/json
 consumes:
-  - application/json
+- application/json
 paths:
   /events:
     get:
+      # Implied operationId: api.events.search
       summary: Get event list
       description: |
         Search events.
       parameters:
-        - name: lat
-          in: query
-          description: Latitude component of location.
-          required: true
-          type: number
-          format: double
-        - name: lon
-          in: query
-          description: Longitude component of location.
-          required: true
-          type: number
-          format: double
-        - name: radius
-          in: query
-          description: Radius of location search.
-          type: number
-          format: integer
-        - name: start_date
-          description: Search events starting at this date
-          in: query
-          type: string
-          format: date-time
-        - name: end_date
-          description: End date for search
-          in: query
-          type: string
-          format: date-time
-        - name: query
-          description: String search query
-          in: query
-          type: string
-        - name: category
-          in: query
-          type: string
-      operationId: app.get_events
+      - name: lat
+        in: query
+        description: Latitude component of location.
+        required: true
+        type: number
+        format: double
+      - name: lon
+        in: query
+        description: Longitude component of location.
+        required: true
+        type: number
+        format: double
+      - name: radius
+        in: query
+        description: Radius of location search. [FIXME allow unit?]
+        type: number
+        format: integer
+      - name: start_date
+        description: Search events starting at this date
+        in: query
+        type: string
+        format: date-time
+      - name: end_date
+        description: End date for search
+        in: query
+        type: string
+        format: date-time
+      - name: query
+        description: String search query
+        in: query
+        type: string
+      - name: category
+        in: query
+        type: string
       tags:
-        - Events
+      - Events
       responses:
         200:
           description: An array of events
@@ -69,48 +66,19 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /event/{id}:
-    get:
+    post:
+      # Implied operationId: api.events.post
       description:
-        Get details of an event
+        create an event
       parameters:
-        - name: id
-          in: path
-          description: The internal id of the event.
-          required: true
-          type: string
-          format: string
-      operationId: app.get_event
+      - name: event
+        in: body
+        description: The event body
+        required: true
+        schema:
+          $ref: '#/definitions/Event'
       tags:
-        - Events
-      responses:
-        200:
-          description: A single event
-          schema:
-            $ref: '#/definitions/Event'
-        default:
-          description: Unexpected error
-          schema:
-            $ref: '#/definitions/Error'
-    put:
-      description:
-        Update or create an event
-      parameters:
-        - name: id
-          in: path
-          description: The internal id of the event.
-          required: true
-          type: string
-          format: string
-        - name: event
-          in: body
-          description: The event body
-          required: true
-          schema:
-            $ref: '#/definitions/Event'
-      operationId: app.save_event
-      tags:
-        - Events
+      - Events
       responses:
         200:
           description: Confirmation message
@@ -121,20 +89,48 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /event:
-    post:
+  /events/{id}:
+    get:
+      # Implied operationId: api.events.get
       description:
-        create an event
+        Get details of an event
       parameters:
-        - name: event
-          in: body
-          description: The event body
-          required: true
+      - name: id
+        in: path
+        description: The internal id of the event.
+        required: true
+        type: string
+        format: string
+      tags:
+      - Events
+      responses:
+        200:
+          description: A single event
           schema:
             $ref: '#/definitions/Event'
-      operationId: app.create_event
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      # Implied operationId: api.events.put
+      description:
+        Update or create an event
+      parameters:
+      - name: id
+        in: path
+        description: The internal id of the event.
+        required: true
+        type: string
+        format: string
+      - name: event
+        in: body
+        description: The event body
+        required: true
+        schema:
+          $ref: '#/definitions/Event'
       tags:
-        - Events
+      - Events
       responses:
         200:
           description: Confirmation message
@@ -177,47 +173,47 @@ definitions:
       category:
         type: string
         enum:
-         - "Bildung"
-         - "Bildung/Vortrag & Diskussion"
-         - "Bildung/Konferenz & Workshop"
-         - "Bühne"
-         - "Bühne/Tanz"
-         - "Bühne/Comedy & Kleinkunst"
-         - "Bühne/Kinder"
-         - "Bühne/Musical & Show"
-         - "Bühne/Oper"
-         - "Bühne/Schauspiel"
-         - "Flohmarkt"
-         - "Flohmarkt/Trödelmarkt"
-         - "Flohmarkt/Nachtflohmarkt"
-         - "Flohmarkt/Kinderflohmarkt"
-         - "Freizeit"
-         - "Freizeit/Bälle & Feste"
-         - "Freizeit/Club & Party"
-         - "Freizeit/Karneval"
-         - "Freizeit/Kinder & Jugend"
-         - "Freizeit/Messen & Märkte"
-         - "Freizeit/Senioren"
-         - "Freizeit/Tanz"
-         - "Freizeit/Vereine & Verbände"
-         - "Kunst & Literatur"
-         - "Kunst & Literatur/Ausstellungen"
-         - "Kunst & Literatur/Führungen"
-         - "Kunst & Literatur/Lesungen"
-         - "Musik"
-         - "Musik/Chöre"
-         - "Musik/Festivals"
-         - "Musik/Jazz, Blues, Soul, Funk, Folk"
-         - "Musik/Klassik"
-         - "Musik/Rock & Pop"
-         - "Musik/Metal & Punk"
-         - "Musik/Schlager & Volksmusik"
-         - "Politik"
-         - "Politik/Lokalpolitik"
-         - "Politik/Überregional"
-         - "Sport"
-         - "Sport/Mitmachen"
-         - "Sport/Zuschauen"
+        - "Bildung"
+        - "Bildung/Vortrag & Diskussion"
+        - "Bildung/Konferenz & Workshop"
+        - "Bühne"
+        - "Bühne/Tanz"
+        - "Bühne/Comedy & Kleinkunst"
+        - "Bühne/Kinder"
+        - "Bühne/Musical & Show"
+        - "Bühne/Oper"
+        - "Bühne/Schauspiel"
+        - "Flohmarkt"
+        - "Flohmarkt/Trödelmarkt"
+        - "Flohmarkt/Nachtflohmarkt"
+        - "Flohmarkt/Kinderflohmarkt"
+        - "Freizeit"
+        - "Freizeit/Bälle & Feste"
+        - "Freizeit/Club & Party"
+        - "Freizeit/Karneval"
+        - "Freizeit/Kinder & Jugend"
+        - "Freizeit/Messen & Märkte"
+        - "Freizeit/Senioren"
+        - "Freizeit/Tanz"
+        - "Freizeit/Vereine & Verbände"
+        - "Kunst & Literatur"
+        - "Kunst & Literatur/Ausstellungen"
+        - "Kunst & Literatur/Führungen"
+        - "Kunst & Literatur/Lesungen"
+        - "Musik"
+        - "Musik/Chöre"
+        - "Musik/Festivals"
+        - "Musik/Jazz, Blues, Soul, Funk, Folk"
+        - "Musik/Klassik"
+        - "Musik/Rock & Pop"
+        - "Musik/Metal & Punk"
+        - "Musik/Schlager & Volksmusik"
+        - "Politik"
+        - "Politik/Lokalpolitik"
+        - "Politik/Überregional"
+        - "Sport"
+        - "Sport/Mitmachen"
+        - "Sport/Zuschauen"
         description: Category of event.
       image:
         $ref: '#/definitions/Image'

@@ -1,32 +1,16 @@
-#!/usr/bin/env python3
-"""
-Open events JSON Rest API
-Uses Conexxion to serve REST API via SWAGGER file
-
-"""
-
-import datetime
-import logging
-import sys
-import os
-from datetime import date, timedelta
 from elasticsearch import Elasticsearch
-import connexion
+from datetime import date, timedelta, datetime
+import logging
+import os
 
-
-# global objects
 elasticsearch_url = os.environ.get("ELASTICSEARCH_URL", "http://elasticsearch:9200/")
-ES = Elasticsearch([elasticsearch_url])
+es = Elasticsearch([elasticsearch_url])
 
-# APP = connexion.App(__name__, specification_dir='swagger/')
-APP = connexion.App(__name__, specification_dir='.')
-
-# config
-ES_INDEX_NAME = 'events'
+ES_INDEX_NAME = os.environ.get("ES_INDEX_NAME", "events")
 ES_DATE_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 
 
-def get_events(lat, lon, radius=10, start_date="", end_date="", query="",
+def search(lat, lon, radius=10, start_date="", end_date="", query="",
                category=""):
     """Return events"""
 
@@ -82,37 +66,41 @@ def get_events(lat, lon, radius=10, start_date="", end_date="", query="",
             {"match": {"category": category}}
         )
 
-    res = ES.search(index=ES_INDEX_NAME, body=query)
+    res = es.search(index=ES_INDEX_NAME, body=query)
     logging.info(query)
     logging.info("\nGot %d Hits.", res['hits']['total'])
 
     response = []
+    # print(res['hits']['hits'])
     for hit in res['hits']['hits']:
-        hit["_source"]["venue"]["location"] = {
-            "lat": hit["_source"]["venue"]["location"][1],
-            "lon": hit["_source"]["venue"]["location"][0]
-        }
+        # logging.info(hit)
+        # hit["_source"]["location"] = {
+        #     "lat": hit["_source"]["location"][1],
+        #     "lon": hit["_source"]["location"][0]
+        #     # "lat": hit["_source"]["venue"]["location"][1],
+        #     # "lon": hit["_source"]["venue"]["location"][0]
+        # }
         response.append(hit['_source'])
 
     return response
 
 
-def get_event(event_id):
-    """Return single event"""
-
-    pet = ES.get(index=ES_INDEX_NAME, doc_type='event', id=event_id)
-    return pet or ('Not found', 404)
-
-
-def create_event(event):
+def post(event):
     """Create  event"""
-    save_event(None, event)
+    put(None, event)
     return {"code": 321, "message": "Event was created"}
 
 
-def save_event(event_id, event):
+def get(event_id):
+    """Return single event"""
+
+    pet = es.get(index=ES_INDEX_NAME, doc_type='event', id=event_id)
+    return pet or ('Not found', 404)
+
+
+def put(event_id, event):
     """update event"""
-    result = ES.index(index=ES_INDEX_NAME, doc_type='event', id=event_id,
+    result = es.index(index=ES_INDEX_NAME, doc_type='event', id=event_id,
                       body=event)
     logging.info(result)
     created = result['created']
@@ -122,21 +110,8 @@ def save_event(event_id, event):
     message = "", 0
     if created:
         message = 'Creating event %s..', event_id
-        event['created_date'] = datetime.datetime.utcnow()
+        event['created_date'] = datetime.utcnow()
     else:
         message = 'Updating event %s..', event_id
 
     return {"code": 123, "message": message}, (201 if created else 200)
-
-APP.add_api('open-events-api.yaml', strict_validation=True,
-            validate_responses=True)
-
-
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-# set the WSGI application callable to allow using uWSGI:
-# uwsgi --http :8080 -w app
-application = APP.app
-
-if __name__ == '__main__':
-    # run our standalone gevent server
-    APP.run(port=8080, server='gevent')
