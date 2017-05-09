@@ -1,62 +1,53 @@
 swagger: '2.0'
 info:
   title: Open Events API
-  description: Move your app forward with the Events API - alpha v0.02
-  version: "0.0.0"
+  description: Move your app forward with the Events API
+  version: 0.0.0
 host: open-events.codeformuenster.org
 schemes:
-- https
+  - https
 basePath: /v0
 produces:
-- application/json
+  - application/json
 consumes:
-- application/json
+  - application/json
+
 paths:
+
   /events:
     get:
-      # Implied operationId: api.events.search
       summary: Get event list
       description: |
         Search events.
       parameters:
-      - name: lat
-        in: query
-        description: Latitude component of location.
-        required: true
-        type: number
-        format: double
-      - name: lon
-        in: query
-        description: Longitude component of location.
-        required: true
-        type: number
-        format: double
-      - name: radius
-        in: query
-        description: Radius of location search. [FIXME allow unit?]
-        type: number
-        format: integer
-      - name: start_date
-        description: Search events starting at this date
-        in: query
-        type: string
-        format: date-time
-      - name: end_date
-        description: End date for search
-        in: query
-        type: string
-        format: date-time
-      - name: query
-        description: String search query
-        in: query
-        type: string
-      - name: category
-        in: query
-        type: string
+        - name: geoDistance
+          in: query
+          description: 'lon, lat, distance'
+          type: array
+          collectionFormat: csv
+          items:
+            type: string
+        - name: startDate
+          description: Search events starting at this date
+          in: query
+          type: string
+          format: date-time
+        - name: endDate
+          description: End date for search
+          in: query
+          type: string
+          format: date-time
+        - name: query
+          description: String search query
+          in: query
+          type: string
+        - name: category
+          in: query
+          type: string
       tags:
-      - Events
+        - Events
       responses:
-        200:
+        '200':
           description: An array of events
           schema:
             type: array
@@ -66,21 +57,20 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+
     post:
-      # Implied operationId: api.events.post
-      description:
-        create an event
+      description: create an event
       parameters:
-      - name: event
-        in: body
-        description: The event body
-        required: true
-        schema:
-          $ref: '#/definitions/Event'
+        - name: event
+          in: body
+          description: The event body
+          required: true
+          schema:
+            $ref: '#/definitions/Event'
       tags:
-      - Events
+        - Events
       responses:
-        200:
+        '200':
           description: Confirmation message
           schema:
             $ref: '#/definitions/Message'
@@ -89,50 +79,71 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /events/{id}:
+  '/events/{id}':
     get:
-      # Implied operationId: api.events.get
-      description:
-        Get details of an event
+      description: Get details of an event
       parameters:
-      - name: id
-        in: path
-        description: The internal id of the event.
-        required: true
-        type: string
-        format: string
+        - name: id
+          in: path
+          description: The internal id of the event.
+          required: true
+          type: string
+          format: string
       tags:
-      - Events
+        - Events
       responses:
-        200:
+        '200':
           description: A single event
           schema:
             $ref: '#/definitions/Event'
+          examples:
+            "application/json":
+              "@context": "http://schema.org"
+              "@type": "Event"
+              location:
+                "@type": "Place"
+                address:
+                  "@type": "PostalAddress"
+                  addressLocality: "Denver"
+                  addressRegion: "CO"
+                  postalCode: "80209"
+                  streetAddress: "7 S. Broadway"
+                geo:
+                  "@type": "GeoCoordinates"
+                  latitude: "39.716331"
+                  longitude: "-104.987733"
+                name: "The Hi-Dive"
+              name: "Typhoon with Radiation City"
+              offers:
+                "@type": "Offer"
+                price: "13.00"
+                priceCurrency: "USD"
+                url: "http://www.ticketfly.com/purchase/309433"
+              startDate: "2013-09-14T21:30"
         default:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+
     put:
-      # Implied operationId: api.events.put
-      description:
-        Update or create an event
+      description: Update or create an event
       parameters:
-      - name: id
-        in: path
-        description: The internal id of the event.
-        required: true
-        type: string
-        format: string
-      - name: event
-        in: body
-        description: The event body
-        required: true
-        schema:
-          $ref: '#/definitions/Event'
+        - name: id
+          in: path
+          description: The internal id of the event.
+          required: true
+          type: string
+          format: string
+        - name: event
+          in: body
+          description: The event body
+          required: true
+          schema:
+            $ref: '#/definitions/Event'
       tags:
-      - Events
+        - Events
       responses:
-        200:
+        '200':
           description: Confirmation message
           schema:
             $ref: '#/definitions/Message'
@@ -142,136 +153,371 @@ paths:
             $ref: '#/definitions/Error'
 
 definitions:
-  Event:
+
+  Thing:
     type: object
     properties:
-      event_id:
-        type: string
-        description: Unique identifier representing a specific event with title, date, time, location.
       description:
         type: string
-        description: Description of event.
-      title:
+        description: A description of the item.
+      identifier:
         type: string
-        description: Title of event.
-      url:
-        type: string
-        description: Link to event detail page
-      venue:
-        $ref: '#/definitions/Venue'
-      start_date:
-        type: string
-        format: date-time
-      end_date:
-        type: string
-        format: date-time
-      tags:
-        type: string
-        description: Tags describing the event
-      source:
-        $ref: '#/definitions/Source'
-      category:
-        type: string
-        enum:
-        - "Bildung"
-        - "Bildung/Vortrag & Diskussion"
-        - "Bildung/Konferenz & Workshop"
-        - "Bühne"
-        - "Bühne/Tanz"
-        - "Bühne/Comedy & Kleinkunst"
-        - "Bühne/Kinder"
-        - "Bühne/Musical & Show"
-        - "Bühne/Oper"
-        - "Bühne/Schauspiel"
-        - "Flohmarkt"
-        - "Flohmarkt/Trödelmarkt"
-        - "Flohmarkt/Nachtflohmarkt"
-        - "Flohmarkt/Kinderflohmarkt"
-        - "Freizeit"
-        - "Freizeit/Bälle & Feste"
-        - "Freizeit/Club & Party"
-        - "Freizeit/Karneval"
-        - "Freizeit/Kinder & Jugend"
-        - "Freizeit/Messen & Märkte"
-        - "Freizeit/Senioren"
-        - "Freizeit/Tanz"
-        - "Freizeit/Vereine & Verbände"
-        - "Kunst & Literatur"
-        - "Kunst & Literatur/Ausstellungen"
-        - "Kunst & Literatur/Führungen"
-        - "Kunst & Literatur/Lesungen"
-        - "Musik"
-        - "Musik/Chöre"
-        - "Musik/Festivals"
-        - "Musik/Jazz, Blues, Soul, Funk, Folk"
-        - "Musik/Klassik"
-        - "Musik/Rock & Pop"
-        - "Musik/Metal & Punk"
-        - "Musik/Schlager & Volksmusik"
-        - "Politik"
-        - "Politik/Lokalpolitik"
-        - "Politik/Überregional"
-        - "Sport"
-        - "Sport/Mitmachen"
-        - "Sport/Zuschauen"
-        description: Category of event.
+          # PropertyValue or Text or URL
+        description: |
+          The identifier property represents any kind of identifier for any kind of [Thing](http://schema.org/Thing), such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See [background notes](http://schema.org/docs/datamodel.html#identifierBg) for more details.
       image:
-        $ref: '#/definitions/Image'
-  Venue:
-    type: object
-    properties:
-      venue_id:
-        type: string
-        description: Unique identifier representing a specific venue
+        $ref: "#/definitions/ImageObject"
+        description: |
+          An image of the item. This can be a [URL](http://schema.org/URL) or a fully described [ImageObject](http://schema.org/ImageObject).
       name:
         type: string
-        description: Venue name
-      location:
-        $ref: '#/definitions/Location'
-      street:
+        description: The name of the item.
+      sameAs:
         type: string
-        description: Street address of venue.
-      city:
-        type: string
-        description: City name of venue.
-      zip:
-        type: string
-        description: Zip code of venue.
-      country:
-        type: string
-        description: Country of venue
-  Image:
-    type: object
-    properties:
+          # URL
+        description: |
+          URL of a reference Web page that unambiguously indicates the item's identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or official website.
       url:
         type: string
-        description: Image url.
-      copyright:
-        type: string
-        description: Name of copyright owner
-      license:
-        type: string
-        description: License of image
-  Source:
+          # URL
+        description: URL of the item.
+      x-other:
+        type: object
+        description: For stuff not fitting on existing schema.
+
+
+  author:
+    description: |
+      The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.
+    # discriminator: "@type"
+    x-extendedDiscriminator: "@type"
     type: object
     properties:
-      url:
+      "@type":
         type: string
-        description: Source url.
-      name:
-        type: string
-        description: Name of event source
-  Location:
+    required:
+      - "@type"
+
+  copyrightHolder:
+    description: The party holding the legal copyright to the CreativeWork.
+    discriminator: "@type"
     type: object
     properties:
-      lat:
-        type: number
-        format: double
-        description: Latitude.
-      lon:
-        type: number
-        format: double
-        description: Longitude.
+      "@type":
+        type: string
+    required:
+      - "@type"
+
+  Organization:
+    allOf:
+      - $ref: "#/definitions/author"
+      - $ref: "#/definitions/copyrightHolder"
+      - $ref: "#/definitions/Thing"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "Organization"
+          address:
+            $ref: "#/definitions/PostalAddress"
+            description: Physical address of the item.
+          email:
+            type: string
+            description: Email address.
+          logo:
+            $ref: "#/definitions/ImageObject"
+            description: An associated logo.
+
+  Person:
+    allOf:
+      - $ref: "#/definitions/author"
+      - $ref: "#/definitions/copyrightHolder"
+      - $ref: "#/definitions/Thing"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "Person"
+          address:
+            $ref: "#/definitions/PostalAddress"
+            description: Physical address of the item.
+          birthDate:
+            type: string
+            format: date-time
+            description: Date of birth.
+          deathDate:
+            type: string
+            format: date-time
+            description: Date of death.
+          email:
+            type: string
+            description: Email address.
+          familyName:
+            type: string
+            description: |
+              Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.
+          gender:
+            type: string
+            description: |
+              Gender of the person. While http://schema.org/Male and http://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender.
+          givenName:
+            type: string
+            description: |
+              Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.
+
+
+  # Getty Vocabularies: Linked Open Data http://vocab.getty.edu/doc/
+  # http://mappings.dbpedia.org/server/ontology/classes/Place
+  #
+  # http://pending.schema.org/CategoryCodeSet ?
+  #   http://pending.schema.org/CategoryCode
+
+  CreativeWork:
+    allOf:
+      - $ref: "#/definitions/Thing"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "CreativeWork"
+              - "Painting"
+              - "Photograph"
+              - "Sculpture"
+          author:
+            $ref: "#/definitions/author"
+            description: |
+              The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.
+          license:
+            type: string
+            description: A license document that applies to this content, typically indicated by URL.
+          copyrightHolder:
+            $ref: "#/definitions/copyrightHolder"
+            description: The party holding the legal copyright to the CreativeWork.
+          dateCreated:
+            type: string
+            format: date-time
+            description: |
+              The date on which the CreativeWork was created or the item was added to a DataFeed.
+          isAccessibleForFree:
+            type: boolean
+            description: A flag to signal that the publication is accessible for free.
+          isFamilyFriendly:
+            type: boolean
+            description: Indicates whether this content is family friendly.
+          keywords:
+            type: string
+            description: |
+              Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.
+          material:
+            type: string
+            description: |
+              A material that something is made from, e.g. leather, wool, cotton, paper.
+
+  MediaObject:
+    allOf:
+      - $ref: "#/definitions/CreativeWork"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "MediaObject"
+          contentUrl:
+            type: string
+            description: |
+              Actual bytes of the media object, for example the image file or video file.
+
+  ImageObject:
+    allOf:
+      - $ref: "#/definitions/MediaObject"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "ImageObject"
+          caption:
+            type: string
+            description: The caption for this object.
+          exifData:
+            type: string
+            description: exif data for this object.
+          representativeOfPage:
+            type: string
+            description: |
+              Indicates whether this image is representative of the content of the page.
+          thumbnail:
+            $ref: "#/definitions/ImageObject"
+            description: |
+              Thumbnail image for an image or video.
+
+
+  # Offer
+
+  Event:
+    allOf:
+      - $ref: "#/definitions/Thing"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "Event"
+              - "BusinessEvent"
+              - "ChildrensEvent"
+              - "ComedyEvent"
+              - "CourseInstance"
+              - "DanceEvent"
+              - "DeliveryEvent"
+              - "EducationEvent"
+              - "ExhibitionEvent"
+              - "Festival"
+              - "FoodEvent"
+              - "LiteraryEvent"
+              - "MusicEvent"
+              - "PublicationEvent"
+              - "SaleEvent"
+              - "ScreeningEvent"
+              - "SocialEvent"
+              - "SportsEvent"
+              - "TheaterEvent"
+              - "VisualArtsEvent"
+          name:
+            type: string
+            description: The title of the event.
+          image:
+            type: string
+            description: URL of an image or logo for the event or tour
+          url:
+            type: string
+            description: URL of a page providing details about the event.
+          startDate:
+            type: string
+            format: date-time
+            description: 'The start date and time of the event, in ISO-8601 format.'
+          doorTime:
+            type: string
+            format: date-time
+            description: 'The time admission commences, in ISO-8601 format.'
+          endDate:
+            type: string
+            format: date-time
+            description: 'The end date and time of the event, in ISO-8601 format.'
+          typicalAgeRange:
+            type: string
+            description: The expected age range.
+          location:
+            $ref: '#/definitions/Place'
+            description: >-
+              A nested schema.org/Place (or more specific subtype, such as
+              schema.org/EventVenue or schema.org/PerformingArtsTheater).
+          workFeatured:
+            $ref: "#/definitions/CreativeWork"
+            description: |
+              A work featured in some event, e.g. exhibited in an ExhibitionEvent. Specific subproperties are available for workPerformed (e.g. a play), or a workPresented (a Movie at a ScreeningEvent).
+        required:
+          - name
+          - startDate
+
+  Place:
+    allOf:
+      - $ref: "#/definitions/Thing"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "Place"
+          name:
+            type: string
+            description: The venue name.
+          sameAs:
+            type: string
+            description: The URL of the venue's official website.
+          address:
+            # type: string
+            $ref: '#/definitions/PostalAddress'
+            description: >-
+              The venue's address. You may either provide the whole address as a
+              single string, or provide the separate fields of the address in a
+              nested schema.org/PostalAddress.
+          geo:
+            $ref: '#/definitions/geo'
+            description: The geo coordinates of the place.
+        required:
+          - name
+
+  PostalAddress:
+    allOf:
+      - $ref: "#/definitions/Thing"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "PostalAddress"
+          streetAddress:
+            type: string
+            description: The street address.
+          addressLocality:
+            type: string
+            description: The locality or city.
+          addressRegion:
+            type: string
+            description: The region or state.
+          postalCode:
+            type: string
+            description: The postal code.
+          addressCountry:
+            type: string
+            description: >-
+              The country. For example, USA. You can also provide the two-letter ISO
+              3166-1 alpha-2 country code.
+
+  geo:
+    description: The geo coordinates of the place.
+    discriminator: "@type"
+    type: object
+    properties:
+      "@type":
+        type: string
+    required:
+      - "@type"
+
+  GeoShape:
+    allOf:
+      - $ref: "#/definitions/geo"
+      - $ref: "#/definitions/Thing"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "GeoShape"
+          evelation:
+            type: string
+            description: The elevation of a location (WGS 84).
+          polygon:
+            type: string
+            description: >-
+              A polygon is the area enclosed by a point-to-point path for which the
+              starting and ending points are the same. A polygon is expressed as a
+              series of four or more space delimited points where the first and
+              final points are identical.
+
+  GeoCoordinates:
+    allOf:
+      - $ref: "#/definitions/geo"
+      - $ref: "#/definitions/Thing"
+      - properties:
+          "@type":
+            type: string
+            enum:
+              - "GeoCoordinates"
+          evelation:
+            type: string
+            description: The elevation of a location (WGS 84).
+          latitude:
+            type: string
+            description: The latitude of a location. For example 37.42242 (WGS 84).
+          longitude:
+            type: string
+            description: The longitude of a location. For example -122.08585 (WGS 84).
+
   Error:
     type: object
     properties:
@@ -282,6 +528,7 @@ definitions:
         type: string
       fields:
         type: string
+
   Message:
     type: object
     properties:

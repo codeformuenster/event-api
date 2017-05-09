@@ -6,7 +6,7 @@ Install Connexion Framework
 
     pip install connexion
 
-Just for reference, Infos about Connextion API Generator
+Just for reference, Infos about Connexion API Generator
 
  *  homepage: https://github.com/zalando/connexion
  *  example: https://github.com/hjacobs/connexion-example/blob/master/app.py
@@ -38,7 +38,42 @@ Or for development mode with auto reload, run with:
 docker-compose build
 docker-compose up
 
-set eventapi (docker network inspect eventapi_default | jq -r '.[].Containers | to_entries | .[] | select(.value.Name == "eventapi_api_1") | .value.IPv4Address | split("/")[0]')
+# addr_port
 
-curl "http://$eventapi:8080/v1/events?lat=0&lon=0"
+set elasticsearch_api \
+  (docker network inspect eventapi_default | jq -r '.[].Containers | to_entries | .[] | select(.value.Name == "eventapi_elasticsearch_1") | .value.IPv4Address | split("/")[0]')
+
+curl --request DELETE -sS "http://$elasticsearch_api:9200/events"
+
+
+cat "./test/fixtures/events_schema.json" | \
+  curl \
+    --request PUT \
+    --header "Content-Type: application/json" \
+    --data @- \
+    --globoff \
+    -sS \
+      "http://$elasticsearch_api:9200/events"
+
+
+set event_api \
+  (docker network inspect eventapi_default | jq -r '.[].Containers | to_entries | .[] | select(.value.Name == "eventapi_api_1") | .value.IPv4Address | split("/")[0]')
+
+# xdg-open "http://$event_api:5000/spec"
+
+
+set -g test_events (cat "./test/fixtures/schemaorg-events.json" | jq -c '.[]')
+
+for event in $test_events
+  echo "$event" \
+    | curl \
+      --request POST \
+      --header "Content-Type: application/json" \
+      --data @- \
+      --globoff \
+      -sS \
+        "http://$event_api:5000/v0/events"
+end
+
+curl "http://$event_api:5000/v0/events?lat=0&lon=0"
 ```

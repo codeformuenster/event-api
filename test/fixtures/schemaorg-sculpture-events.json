@@ -1,0 +1,59 @@
+[{
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "location": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Münster",
+      "postalCode": "48155",
+      "streetAddress": "Zum Guten Hirten 109"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "0",
+      "longitude": "0"
+    },
+    "name": "{location/name}"
+  },
+  "name": "WoGA Garten",
+  "description": "Skulpturen-Garten, So., 14 - 18 Uhr",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "EUR"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "typicalAgeRange": "All Ages",
+  "_category": []
+}, {
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "location": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Münster",
+      "postalCode": "48155",
+      "streetAddress": "Eulerstraße 21"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "0",
+      "longitude": "0"
+    },
+    "name": "{location/name}"
+  },
+  "name": "Graffiti Kunst",
+  "description": "Die Fabrikwand ist offiziell erlaubte Graffiti-Fläche. Kunst-Studierende sprühen hier gerne ihre Werke an die Wand. So entsteht eine ständig wechselnde Graffiti-Ausstellung auf hohem Niveau. Häufig sind die Künstler/innen bei der Arbeit anzutreffen. Die Skulptur befindet sich im öffentlichen Raum",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "EUR"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "typicalAgeRange": "All Ages",
+  "_category": []
+}]

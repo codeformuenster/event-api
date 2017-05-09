@@ -19,4 +19,4 @@ def spec():
     return app.app.send_static_file('spec.html')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False)

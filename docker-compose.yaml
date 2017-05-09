@@ -3,6 +3,8 @@ version: "2"
 services:
   api:
     build: .
+    volumes:
+    - .:/usr/src/app
 
   elasticsearch:
     image: elasticsearch:5.3

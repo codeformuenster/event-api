@@ -1,0 +1,41 @@
+[{
+    "title": "Studententage2 2",
+    "start_date": "2016-11-30T18:00:00Z",
+    "end_date": "2016-11-30T16:00:00Z",
+    "url": "http://muenster.partyphase.net/events/9958/studententag/",
+    "description": "\r\n <p></p>\n <p>Wir empfehlen Päuschen vom PArty  und den Kopf beim Billardspiel wieder frei bekommen-heute mit Sonderpreisen für Studenten.</p> \n\r\n <p></p> \r\n",
+    "image": {
+      "url": "http://muenster.partyphase.net/wp-content/uploads/sites/53/2016/11/14883562_1209635382436694_1868131182855661391_o-1.jpg",
+      "copyright": "Peter Pan"
+    },
+    "beer": "karlsberg",
+    "venue": {
+      "name": "Pool Hall",
+      "location": {
+        "lat": "oink",
+        "lon": 7.627247
+      },
+      "moppel": "yo"
+    }
+  },
+  {
+    "title": "Studententage2 2",
+    "start_date": "2016-11-30T18:00:00Z",
+    "end_date": "2016-11-30T16:00:00Z",
+    "url": "http://muenster.partyphase.net/events/9958/studententag/",
+    "description": "\r\n <p></p>\n <p>Wir empfehlen Päuschen vom PArty  und den Kopf beim Billardspiel wieder frei bekommen-heute mit Sonderpreisen für Studenten.</p> \n\r\n <p></p> \r\n",
+    "image": {
+      "url": "http://muenster.partyphase.net/wp-content/uploads/sites/53/2016/11/14883562_1209635382436694_1868131182855661391_o-1.jpg",
+      "copyright": "Peter Pan"
+    },
+    "beer": "karlsberg",
+    "venue": {
+      "name": "Pool Hall",
+      "location": {
+        "lat": 51.958925,
+        "lon": 7.627247
+      },
+      "moppel": "yo"
+    }
+  }
+]

@@ -5,7 +5,7 @@ RUN apk --no-cache add tini \
     gcc python-dev musl-dev \
   && pip install \
     "elasticsearch~=5.3.0" \
-    "certifi~=2017.1.23" \
+    "certifi~=2017.4.17" \
     "connexion~=1.1.9" \
     "gevent~=1.2.1" \
     "flask-cors~=3.0.2" \
