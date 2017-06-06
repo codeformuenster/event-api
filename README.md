@@ -75,5 +75,7 @@ for event in $test_events
         "http://$event_api:5000/v0/events"
 end
 
-curl "http://$event_api:5000/v0/events?lat=0&lon=0"
+curl "http://$event_api:5000/v0/events"
+
+curl "http://$event_api:5000/v0/events?geoDistance=7.622457,51.9647714,10km"
 ```

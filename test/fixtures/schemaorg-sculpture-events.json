@@ -1,59 +1,227 @@
 [{
   "@context": "http://schema.org",
   "@type": "Event",
+  "name": "WoGA Garten",
+  "description": "Skulpturen-Garten\n## Öffnungszeiten\nSo., 14 - 18 Uhr\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Kubeja, Jochen"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "WoGA Garten",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  },
   "location": {
     "@type": "Place",
+    "name": "",
     "address": {
       "@type": "PostalAddress",
+      "addressCountry": "DE",
       "addressLocality": "Münster",
       "postalCode": "48155",
       "streetAddress": "Zum Guten Hirten 109"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "0",
-      "longitude": "0"
-    },
-    "name": "{location/name}"
-  },
-  "name": "WoGA Garten",
-  "description": "Skulpturen-Garten, So., 14 - 18 Uhr",
-  "offers": {
-    "@type": "Offer",
-    "price": "0.00",
-    "priceCurrency": "EUR"
-  },
-  "startDate": "2017-06-10T00:00",
-  "endDate": "2017-10-01T00:00",
-  "typicalAgeRange": "All Ages",
-  "_category": []
+      "latitude": 51.9615391,
+      "longitude": 7.669215500000001
+    }
+  }
 }, {
   "@context": "http://schema.org",
   "@type": "Event",
+  "name": "Graffiti Kunst",
+  "description": "Die Fabrikwand ist offiziell erlaubte Graffiti-Fläche. Kunst-Studierende sprühen hier gerne ihre Werke an die Wand. So entsteht eine ständig wechselnde Graffiti-Ausstellung auf hohem Niveau. Häufig sind die Künstler/innen bei der Arbeit anzutreffen.\n## Öffnungszeiten\nimmer\n\n## Ausstattung\nDie Skulptur befindet sich im öffentlichen Raum\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Kubeja, Jochen"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "Graffiti Kunst",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  },
   "location": {
     "@type": "Place",
+    "name": "",
     "address": {
       "@type": "PostalAddress",
+      "addressCountry": "DE",
       "addressLocality": "Münster",
       "postalCode": "48155",
       "streetAddress": "Eulerstraße 21"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "0",
-      "longitude": "0"
-    },
-    "name": "{location/name}"
-  },
-  "name": "Graffiti Kunst",
-  "description": "Die Fabrikwand ist offiziell erlaubte Graffiti-Fläche. Kunst-Studierende sprühen hier gerne ihre Werke an die Wand. So entsteht eine ständig wechselnde Graffiti-Ausstellung auf hohem Niveau. Häufig sind die Künstler/innen bei der Arbeit anzutreffen. Die Skulptur befindet sich im öffentlichen Raum",
-  "offers": {
-    "@type": "Offer",
-    "price": "0.00",
-    "priceCurrency": "EUR"
+      "latitude": 51.9412643,
+      "longitude": 7.6398993
+    }
+  }
+}, {
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "Elefant",
+  "description": "Ein aus weißem Marmor gehauener Elefant, etwa 1,10 groß\n## Öffnungszeiten\nimmer\n\n## Ausstattung\nDie Skulptur befindet sich im öffentlichen Raum\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Kubeja, Jochen"
   },
   "startDate": "2017-06-10T00:00",
   "endDate": "2017-10-01T00:00",
-  "typicalAgeRange": "All Ages",
-  "_category": []
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "Elefant",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  },
+  "location": {
+    "@type": "Place",
+    "name": "",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "DE",
+      "addressLocality": "Münster",
+      "postalCode": "48155",
+      "streetAddress": "Nieberdingstraße 11"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 51.9434,
+      "longitude": 7.645779999999999
+    }
+  }
+}, {
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "Die Große",
+  "description": "Skulpur aus Schrott und Holz\n## Öffnungszeiten\nAugust 2017\n\n## Ausstattung\nEs gibt eine Toilette vor Ort\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Jaffke, Michael"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "Die Große",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  }
+}, {
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "Critical Mass Münster",
+  "description": "Werde Teil der Masse und zeig, dass Radfahrer im Verband im Straßenverkehr ein  s werden und zu einem riesigen Fahrzeug verschmelzen. \n\n> 16 Radfahrer = Verband = auf der Straße fahren \n\nKeine Demo, Veranstaltung oder Rennen, sondern Performance, Flashmob und Haltung. Und auch einfach und entspannt mit anderen durch die Stadt radeln.\n\nSpät dran oder Start verpasst? Kein Problem!\nMit den Apps Critical Maps und Glympse könnt ihr uns auch als Nachzügler noch finden und zur Masse dazustoßen.\nCritical Maps: Einfach App runterladen und öffnen. Der aktuelle Standort der CM wird angezeigt.\nGlympse: App runterladen und nach dem Tag \"criticalmassMS\" suchen, auch hier wird dann der Standort angezeigt.\nFür alle die pünktlich da sind: Ladet euch doch auch die App runter, startet Sie beim losfahren und teilt damit euren Standort. Das ermöglicht den anderen uns zu finden. Je mehr Leute mitmachen, desto genauer wirds!\n\nBis gleich!\n\n## Öffnungszeiten\nFr., 26.05.2017\nFr., 30.06.2017\nFr. 28.07.2017\nFr. 25.08.2017\nFr., 29.09.2017\nStart ist jeweils um 19.00 Uhr.\n\n## Ausstattung\nDie Skulptur befindet sich im öffentlichen Raum, Es gibt eine Toilette vor Ort, Es gibt Wickelmöglichkeiten für Babies\n\n## Wie möchtest Du ausstellen?\nKunst-Flashmob\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Kubeja, Jochen"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "Critical Mass Münster",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  }
+}, {
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "Der Sonnenwagen",
+  "description": "Kinetische Gemeinschafts-Skulptur mit medialer Installation\n## Öffnungszeiten\n24h ohne mediale Installation an der Dammstr. 19 - an ausgewählten Tagen und Orten mit medialer Installation\n\n## Ausstattung\nDie Skulptur befindet sich im öffentlichen Raum\n\n## Wie möchtest Du ausstellen?\nSonstiges\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Weyand, Georgios"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "Der Sonnenwagen",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  }
+}, {
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "Skulpturen-Garten Ahlener Gruppe",
+  "description": "Gegenüber des Zwingers an der Promenade führt ein schmaler Weg (markiert) direkt in den einladenden Skulpturen-Garten. Die Ahlener KünstlerInnengruppe arbeitet seit über 10 Jahren an Skulpturen aus Sandstein und Speckstein. Eine Auswahl der Werke präsentieren sie in dem hausumläufigen Garten. Die Gruppe verbindet der Werkstoff, die Motivwahl erfolgt individuell durch die jeweilige KünstlerIn. Die Künstler sind anwesend und arbeiten zum Teil vor Ort.\n## Öffnungszeiten\nSa., 29.08.2017, 12.00 bis 18.00 Uhr\n\n## Wie möchtest Du ausstellen?\nAusstellung\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Künnemann, Ursula"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "Skulpturen-Garten Ahlener Gruppe",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  },
+  "location": {
+    "@type": "Place",
+    "name": "",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "DE",
+      "addressLocality": "Münster",
+      "postalCode": "48147",
+      "streetAddress": "Zeppelinstraße 6"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 51.9681995,
+      "longitude": 7.631402199999999
+    }
+  }
+}, {
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "Lyme Anima",
+  "description": "Ein Ölgemälde. Seht selbst, macht euch ein Bild.\n## Ausstattung\nIch benötige einen Raum/Garten/etc für meine Aktion\n\n## Was möchtest Du ausstellen?\nGemälde\n\n## Wie möchtest Du ausstellen?\nAusstellung\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Schulze, Einar"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "Lyme Anima",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  }
+}, {
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "Kunstgewirk",
+  "description": "Unterschiedliche gestaltete Stühle\n## Öffnungszeiten\nSteht noch nicht fest\n\n## Wie möchtest Du ausstellen?\nEvent\n",
+  "organizer": {
+    "@type": "Person",
+    "name": "Kordt, Monika Veronika"
+  },
+  "startDate": "2017-06-10T00:00",
+  "endDate": "2017-10-01T00:00",
+  "workFeatured": {
+    "@type": "Sculpture",
+    "name": "Kunstgewirk",
+    "description": "",
+    "keywords": "",
+    "material": ""
+  }
 }]

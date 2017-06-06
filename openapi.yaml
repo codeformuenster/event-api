@@ -208,10 +208,21 @@ definitions:
     required:
       - "@type"
 
+  organizer:
+    description: An organizer of an Event.
+    discriminator: "@type"
+    type: object
+    properties:
+      "@type":
+        type: string
+    required:
+      - "@type"
+
   Organization:
     allOf:
       - $ref: "#/definitions/author"
       - $ref: "#/definitions/copyrightHolder"
+      - $ref: "#/definitions/organizer"
       - $ref: "#/definitions/Thing"
       - properties:
           "@type":
@@ -232,6 +243,7 @@ definitions:
     allOf:
       - $ref: "#/definitions/author"
       - $ref: "#/definitions/copyrightHolder"
+      - $ref: "#/definitions/organizer"
       - $ref: "#/definitions/Thing"
       - properties:
           "@type":
@@ -403,6 +415,9 @@ definitions:
           typicalAgeRange:
             type: string
             description: The expected age range.
+          organizer:
+            $ref: "#/definitions/organizer"
+            description: An organizer of an Event.
           location:
             $ref: '#/definitions/Place'
             description: >-
@@ -509,13 +524,13 @@ definitions:
             enum:
               - "GeoCoordinates"
           evelation:
-            type: string
+            type: number
             description: The elevation of a location (WGS 84).
           latitude:
-            type: string
+            type: number
             description: The latitude of a location. For example 37.42242 (WGS 84).
           longitude:
-            type: string
+            type: number
             description: The longitude of a location. For example -122.08585 (WGS 84).
 
   Error:

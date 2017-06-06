@@ -109,7 +109,7 @@ def put(event_id, event):
         message = f"Creating event {event_id}"
         # event['created_date'] = datetime.utcnow()
     else:
-        message = "Updating event {event_id}"
+        message = f"Updating event {event_id}"
 
     return {"code": 123, "message": message}, (201 if "created" in result else 200)
     # see https://tools.ietf.org/html/rfc7807#section-3.1
