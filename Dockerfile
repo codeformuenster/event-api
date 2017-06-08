@@ -1,13 +1,13 @@
 FROM python:3.6-alpine
 
-RUN apk --no-cache add tini \
+RUN apk --no-cache add tini curl \
   && apk --no-cache add --virtual .build-deps \
     gcc python-dev musl-dev \
   && pip install \
-    "elasticsearch~=5.3.0" \
+    "elasticsearch~=5.4.0" \
     "certifi~=2017.4.17" \
-    "connexion~=1.1.9" \
-    "gevent~=1.2.1" \
+    "connexion~=1.1.10" \
+    "gevent~=1.2.2" \
     "flask-cors~=3.0.2" \
   && apk del .build-deps
 
