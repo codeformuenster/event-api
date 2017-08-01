@@ -38,6 +38,10 @@ echo_cyan 'read test events'
 IFS=$'\n' # '
 test_schemaorg_sculpture_events=$(cat "./fixtures/schemaorg-sculpture-events.json" | jq -c '.[]')
 
+echo_cyan 'read unims events'
+IFS=$'\n' # '
+test_schemaorg_unims_events=$(cat "./fixtures/schemaorg-unims-events.jsonl" | jq -c '.')
+
 
 echo_cyan "run tests"
 . ./sharness.sh
@@ -53,5 +57,21 @@ sleep 1
 test_expect_success "get all results" "
     test 9 = $(curl_json GET $event_api:5000/v0/events | jq '. | length')
 "
+
+for event in ${test_schemaorg_unims_events}; do
+  test_expect_success "post event" "
+      test 123 = $(echo ${event} | curl_json POST $event_api:5000/v0/events | jq '.code')
+  "
+done
+# echo_cyan 'wait for events to be indexed'
+# sleep 1
+
+echo "###"
+
+for event in ${test_schemaorg_unims_events}; do
+  test_expect_success "put event" "
+      test 123 = $(echo ${event} | curl_json PUT $event_api:5000/v0/events/test | jq '.code')
+  "
+done
 
 test_done

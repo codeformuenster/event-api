@@ -59,6 +59,9 @@ def search(**kwargs):
     res = es.search(index=ES_INDEX_NAME, body=query)
     logging.info("\nGot %d Hits.", res['hits']['total'])
 
+    # for hit in res['hits']['hits']:
+    #     logging.info(hit['_source'])
+
     response = [hit['_source'] for hit in res['hits']['hits']]
     return response
     # or https://tools.ietf.org/html/rfc7807#section-3.1
@@ -70,14 +73,14 @@ def post(event):
     # return {"code": 321, "message": "Event was created"}
 
 
-def get(event_id):
+def get(id):
     """Return single event"""
 
-    pet = es.get(index=ES_INDEX_NAME, doc_type='event', id=event_id)
+    pet = es.get(index=ES_INDEX_NAME, doc_type='event', id=id)
     return pet or ('Not found', 404)
 
 
-def put(event_id, event):
+def put(id, event):
     """update event"""
 
     if event.get("location", {}).get("geo"):
@@ -97,7 +100,7 @@ def put(event_id, event):
 
     result = {}
     try:
-        result = es.index(index=ES_INDEX_NAME, doc_type='event', id=event_id,
+        result = es.index(index=ES_INDEX_NAME, doc_type='event', id=id,
                           body=event)
     except elasticsearch.ElasticsearchException as err:
         logging.info(f"elasticsearch.ElasticsearchException: {err}")
@@ -106,10 +109,10 @@ def put(event_id, event):
 
     message = ""
     if "created" in result:
-        message = f"Creating event {event_id}"
+        message = f"Creating event {id}"
         # event['created_date'] = datetime.utcnow()
     else:
-        message = f"Updating event {event_id}"
+        message = f"Updating event {id}"
 
     return {"code": 123, "message": message}, (201 if "created" in result else 200)
     # see https://tools.ietf.org/html/rfc7807#section-3.1
