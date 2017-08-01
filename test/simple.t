@@ -34,6 +34,8 @@ echo_cyan 'create index "events" with schema'
 cat "../events_schema.json" | \
   curl_json PUT "$elasticsearch:9200/events"
 
+# FIXME index should be created by the event-api
+
 echo_cyan 'read test events'
 IFS=$'\n' # '
 test_schemaorg_sculpture_events=$(cat "./fixtures/schemaorg-sculpture-events.json" | jq -c '.[]')
@@ -73,5 +75,8 @@ for event in ${test_schemaorg_unims_events}; do
       test 123 = $(echo ${event} | curl_json PUT $event_api:5000/v0/events/test | jq '.code')
   "
 done
+
+# FIXME get putted events
+# verify count of events in schema
 
 test_done

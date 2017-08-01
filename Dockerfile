@@ -6,7 +6,7 @@ RUN apk --no-cache add tini curl \
   && pip install \
     "elasticsearch~=5.4.0" \
     "certifi~=2017.4.17" \
-    "connexion~=1.1.10" \
+    "connexion~=1.1.13" \
     "gevent~=1.2.2" \
     "flask-cors~=3.0.2" \
   && apk del .build-deps
