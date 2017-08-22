@@ -44,16 +44,19 @@ def search(**kwargs):
         query = {**query, **geo_distance}
 
 
-    querystring = kwargs.get("query")
-    if querystring:
-        query["query"]["bool"]["should"] = [
-            {"match": {"title": querystring}},
-            {"match": {"description": querystring}},
-            {"match": {"venue.name": querystring}},
-            {"match": {"tags": querystring}},
-            {"match": {"category": querystring}}
-        ]
-        query["query"]["bool"]["minimum_should_match"] = 1
+    if "query" in kwargs:
+        querystring = kwargs.get("query")
+        query_string = {"query": {"bool": {
+            "should": [
+                {"match": {"title": querystring}},
+                {"match": {"description": querystring}},
+                {"match": {"venue.name": querystring}},
+                {"match": {"tags": querystring}},
+                {"match": {"category": querystring}}
+            ],
+            "minimum_should_match": 1
+        }}}
+        query = {**query, **query_string}
 
     logging.info(f"query: {query}")
     res = es.search(index=ES_INDEX_NAME, body=query)
