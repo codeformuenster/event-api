@@ -48,11 +48,12 @@ def search(**kwargs):
         querystring = kwargs.get("query")
         query_string = {"query": {"bool": {
             "should": [
-                {"match": {"title": querystring}},
+                {"match": {"name": querystring}},
                 {"match": {"description": querystring}},
-                {"match": {"venue.name": querystring}},
-                {"match": {"tags": querystring}},
-                {"match": {"category": querystring}}
+                {"match": {"location.name": querystring}},
+                {"match": {"organizer.name": querystring}},
+                {"match": {"x-tags": querystring}},
+                {"match": {"x-category": querystring}}
             ],
             "minimum_should_match": 1
         }}}
